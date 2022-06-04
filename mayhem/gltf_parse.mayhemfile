@@ -1,0 +1,7 @@
+project: gltf
+target: gltf-parse
+
+cmds:
+  - cmd: /gltf_parse
+  - cmd: /gltf_parse_no_inst @@
+    libfuzzer: false
