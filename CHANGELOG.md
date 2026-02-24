@@ -10,6 +10,10 @@ The top-level `gltf` crate adheres to [Semantic Versioning](http://semver.org/sp
 
 ### Added
 
+- Support for the `KHR_animation_pointer` extension.
+
+### Added
+
 - New feature flag `allow_empty_animation_target_node` to be able to parse newer animated assets.
 
 ## [1.4.1] - 2024-05-09
