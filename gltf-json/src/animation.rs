@@ -9,7 +9,7 @@ use std::fmt;
 pub const VALID_INTERPOLATIONS: &[&str] = &["LINEAR", "STEP", "CUBICSPLINE"];
 
 /// All valid animation property names.
-pub const VALID_PROPERTIES: &[&str] = &["translation", "rotation", "scale", "weights"];
+pub const VALID_PROPERTIES: &[&str] = &["translation", "rotation", "scale", "weights", "pointer"];
 
 /// Specifies an interpolation algorithm.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Deserialize)]
@@ -50,6 +50,8 @@ pub enum Property {
     Scale,
     /// Weights of morph targets.
     MorphTargetWeights,
+    /// An arbitrary property targeted via the `KHR_animation_pointer` extension.
+    Pointer,
 }
 
 /// A keyframe animation.
@@ -278,6 +280,7 @@ impl<'de> de::Deserialize<'de> for Checked<Property> {
                     "rotation" => Valid(Rotation),
                     "scale" => Valid(Scale),
                     "weights" => Valid(MorphTargetWeights),
+                    "pointer" => Valid(Pointer),
                     _ => Invalid,
                 })
             }
@@ -296,6 +299,7 @@ impl ser::Serialize for Property {
             Property::Rotation => "rotation",
             Property::Scale => "scale",
             Property::MorphTargetWeights => "weights",
+            Property::Pointer => "pointer",
         })
     }
 }

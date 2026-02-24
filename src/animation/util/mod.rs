@@ -183,6 +183,12 @@ where
                     .map(|x| ReadOutputs::MorphTargetWeights(MorphTargetWeights::F32(x))),
                 _ => unreachable!(),
             },
+            Property::Pointer => {
+                // Pointer-based channels target arbitrary properties whose data
+                // types depend on the pointer path. Use the output accessor
+                // directly to interpret the data.
+                None
+            }
         }
     }
 }
