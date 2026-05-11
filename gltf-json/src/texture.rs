@@ -1,7 +1,7 @@
-use crate::validation::{Checked, Validate};
-use crate::{extensions, image, Extras, Index};
 #[cfg(not(feature = "extras"))]
 use crate::extras::Void;
+use crate::validation::{Checked, Validate};
+use crate::{extensions, image, Extras, Index};
 use gltf_derive::Validate;
 use serde::{de, ser};
 use serde_derive::{Deserialize, Serialize};
