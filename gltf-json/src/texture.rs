@@ -1,7 +1,7 @@
-use crate::validation::{Checked, Validate};
-use crate::{extensions, image, Extras, Index};
 #[cfg(not(feature = "extras"))]
 use crate::extras::Void;
+use crate::validation::{Checked, Validate};
+use crate::{extensions, image, Extras, Index};
 use gltf_derive::Validate;
 use serde::{de, ser};
 use serde_derive::{Deserialize, Serialize};
@@ -167,7 +167,7 @@ pub struct Sampler {
     #[cfg_attr(not(feature = "extras"), serde(skip_serializing))]
     pub extras: Extras,
 }
-  
+
 impl Sampler {
     // A const version of the material returned when calling [`Sampler::default`]
     pub const DEFAULT_SAMPLER: Sampler = Sampler {
