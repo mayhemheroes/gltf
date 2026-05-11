@@ -203,6 +203,10 @@ impl<'a> Target<'a> {
     }
 
     /// Returns the target node.
+    ///
+    /// When the `KHR_animation_pointer` extension is used, the target may not
+    /// have a node. In that case this method will panic. Use [`Target::node_opt`]
+    /// for a safe alternative.
     pub fn node(&self) -> scene::Node<'a> {
         self.anim
             .document
@@ -211,10 +215,34 @@ impl<'a> Target<'a> {
             .unwrap()
     }
 
+    /// Returns the target node, if present.
+    ///
+    /// Returns `None` when the animation channel uses the `KHR_animation_pointer`
+    /// extension, as pointer-based targets do not reference a node.
+    pub fn node_opt(&self) -> Option<scene::Node<'a>> {
+        self.anim.document.nodes().nth(self.json.node.value())
+    }
+
     /// Returns the node's property to modify or the 'weights' of the morph
     /// targets it instantiates.
     pub fn property(&self) -> Property {
         self.json.path.unwrap()
+    }
+
+    /// Returns the JSON pointer from the `KHR_animation_pointer` extension,
+    /// if present.
+    ///
+    /// When the channel target `path` is `"pointer"`, this returns the JSON
+    /// pointer string that identifies the animated property in the glTF asset.
+    #[cfg(feature = "KHR_animation_pointer")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "KHR_animation_pointer")))]
+    pub fn animation_pointer(&self) -> Option<&'a str> {
+        self.json
+            .extensions
+            .as_ref()?
+            .khr_animation_pointer
+            .as_ref()
+            .map(|ext| ext.pointer.as_str())
     }
 }
 
