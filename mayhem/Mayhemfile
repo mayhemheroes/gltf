@@ -1,0 +1,6 @@
+project: gltf
+target: gltf-parse
+duration: 300
+
+cmds:
+  - cmd: /mayhem/gltf-parse
